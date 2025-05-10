@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - backend
+
+  book-service:
+    build: ./book-service
+    container_name: book-service
+    ports:
+      - "5001:5000"
+    depends_on:
+      - mongo
+    environment:
+      - FLASK_ENV=development
+    networks:
+      - backend
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "5002:5000"
+    depends_on:
+      - mongo
+    networks:
+      - backend
+
+  borrow-service:
+    build: ./borrow-service
+    container_name: borrow-service
+    ports:
+      - "5003:5000"
+    depends_on:
+      - mongo
+    networks:
+      - backend
+
+  inventory-service:
+    build: ./inventory-service
+    container_name: inventory-service
+    ports:
+      - "5004:5000"
+    depends_on:
+      - mongo
+    networks:
+      - backend
+
+volumes:
+  mongo_data:
+
+networks:
+  backend:
+    driver: bridge

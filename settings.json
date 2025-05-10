@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "venv/Scripts/python.exe", // For Windows
+    "terminal.integrated.env.windows": {
+      "VIRTUAL_ENV": "${workspaceFolder}\\venv",
+      "PATH": "${workspaceFolder}\\venv\\Scripts;${env:PATH}"
+    }
+  }
+  
